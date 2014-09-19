@@ -40,6 +40,7 @@ class TracTickets {
 			$tickets = explode( "\r\n", $tickets );
 			self::$trac_ticket_cache[ $trac_url ] = $tickets;
 		}
+		print_r( self::$trac_ticket_cache );
 
 		return ! in_array( $ticket_id, self::$trac_ticket_cache[ $trac_url ] );
 	}
