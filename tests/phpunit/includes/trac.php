@@ -22,6 +22,7 @@ class TracTickets {
 			// In case you're running the tests offline, keep track of open tickets.
 			$file = DIR_TESTDATA . '/.trac-ticket-cache.' . str_replace( array( 'http://', 'https://', '/' ), array( '', '', '-' ), rtrim( $trac_url, '/' ) );
 			$tickets = @file_get_contents( $trac_url . '/query?status=%21closed&format=csv&col=id' );
+			print_r( $tickets );
 			// Check if our HTTP request failed.
 			if ( false === $tickets ) {
 				if ( file_exists( $file ) ) {
@@ -38,9 +39,9 @@ class TracTickets {
 				file_put_contents( $file, $tickets );
 			}
 			$tickets = explode( "\r\n", $tickets );
+			print_r( $tickets ); die();
 			self::$trac_ticket_cache[ $trac_url ] = $tickets;
 		}
-		print_r( self::$trac_ticket_cache );
 
 		return ! in_array( $ticket_id, self::$trac_ticket_cache[ $trac_url ] );
 	}
